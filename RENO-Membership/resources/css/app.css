@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.transition-opacity 
+{
+    transition: opacity 0.3s ease-in-out;
+}
