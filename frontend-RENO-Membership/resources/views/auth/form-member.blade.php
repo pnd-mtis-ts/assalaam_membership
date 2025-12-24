@@ -147,15 +147,31 @@
                                 dark:focus:ring-[#F97300]/30 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100"></textarea>
                         </div>
 
-                        @foreach (['RT','RW','KELURAHAN','KECAMATAN','KOTA','POST_CODE','TELP'] as $field)
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ str_replace('_',' ',$field) }}@if($field=='TELP')<span class="text-red-500">*</span>@endif</label>
-                            <input type="text" name="MEMBER_{{ $field }}" {{ $field == 'TELP' ? 'required' : '' }}
-                                class="mt-1 w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 
-                                focus:border-green-500 dark:focus:border-[#F97300] focus:ring-2 focus:ring-green-200 
-                                dark:focus:ring-[#F97300]/30 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100">
-                        </div>
-                        @endforeach
+@foreach ([
+    'RT'         => 'RT',
+    'RW'         => 'RW',
+    'KELURAHAN'  => 'KELURAHAN',
+    'KECAMATAN'  => 'KECAMATAN',
+    'KOTA'       => 'KOTA',
+    'POST CODE'  => 'POST_CODE',
+    'NO HP'      => 'TELP',
+] as $label => $field)
+    <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {{ $label }} <span class="text-red-500">*</span>
+        </label>
+
+        <input
+            type="text"
+            name="MEMBER_{{ $field }}"
+            id="MEMBER_{{ $field }}"
+            required
+            class="mt-1 w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 
+                   focus:border-green-500 dark:focus:border-[#F97300] focus:ring-2 focus:ring-green-200 
+                   dark:focus:ring-[#F97300]/30 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100">
+    </div>
+@endforeach
+
                     </div>
                 </div>
 

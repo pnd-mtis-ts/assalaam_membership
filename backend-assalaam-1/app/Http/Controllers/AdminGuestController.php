@@ -9,6 +9,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MemberActivatedMail;
+
 
 class AdminGuestController extends Controller
 {
@@ -216,6 +219,35 @@ class AdminGuestController extends Controller
     
             // Hapus data guest
             $guest->delete();
+            // =======================
+// KIRIM EMAIL NOTIFIKASI
+// =======================
+$user = User::where('member_id', $guest->MEMBER_ID)->first();
+
+if ($user && $user->email) {
+    try {
+        Mail::to($user->email)->send(
+            new MemberActivatedMail([
+                'name'    => $guest->MEMBER_NAME,
+                'card_no' => $dataFromBackend2['member_card_no'] ?? '-',
+                'type'    => $tipeMember,
+                'from'    => $activeFrom->format('d-m-Y'),
+                'to'      => $activeTo->format('d-m-Y'),
+            ])
+        );
+
+        Log::info('📧 Email aktivasi berhasil dikirim', [
+            'email' => $user->email,
+            'member_id' => $guest->MEMBER_ID
+        ]);
+    } catch (\Exception $mailError) {
+        Log::error('❌ Gagal kirim email aktivasi', [
+            'email' => $user->email,
+            'error' => $mailError->getMessage()
+        ]);
+    }
+}
+
     
             return response()->json([
                 'success'         => true,

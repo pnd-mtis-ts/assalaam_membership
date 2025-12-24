@@ -16,7 +16,7 @@
         {{-- Logo --}}
         <a href="/" class="flex items-center flex-1">
             <img src="{{ asset('images/logoTeks.png') }}" 
-                 class="h-10 sm:h-12 w-auto max-w-[140px] object-contain me-3" 
+                 class="h-6 sm:h-10 w-auto max-w-[120px] object-contain me-2" 
                  alt="Logo">
         </a>
 
@@ -154,21 +154,41 @@
             <hr class="my-2 border-gray-300 dark:border-gray-600">
 
             <!-- Ganti Password -->
-            <div>
-                <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Password Lama</label>
-                <input type="password" id="oldPassword" placeholder="••••••••"
-                    class="w-full px-3 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring focus:ring-green-400 outline-none">
-            </div>
-            <div>
-                <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Password Baru</label>
-                <input type="password" id="newPassword" placeholder="••••••••"
-                    class="w-full px-3 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring focus:ring-green-400 outline-none">
-            </div>
-            <div>
-                <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Konfirmasi Password Baru</label>
-                <input type="password" id="newPasswordConfirmation" placeholder="••••••••"
-                    class="w-full px-3 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring focus:ring-green-400 outline-none">
-            </div>
+           <div class="relative">
+    <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Password Lama</label>
+    <input type="password" id="oldPassword"
+        class="w-full px-3 py-2 pr-10 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring focus:ring-green-400 outline-none"
+        placeholder="••••••••">
+    <button type="button"
+        class="absolute right-3 top-9 text-gray-500 hover:text-green-600"
+        onclick="togglePassword('oldPassword', this)">
+        <ion-icon name="eye-outline"></ion-icon>
+    </button>
+</div>
+          <div class="relative">
+    <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Password Baru</label>
+    <input type="password" id="newPassword"
+        class="w-full px-3 py-2 pr-10 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring focus:ring-green-400 outline-none"
+        placeholder="••••••••">
+    <button type="button"
+        class="absolute right-3 top-9 text-gray-500 hover:text-green-600"
+        onclick="togglePassword('newPassword', this)">
+        <ion-icon name="eye-outline"></ion-icon>
+    </button>
+</div>
+
+            <div class="relative">
+    <label class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Konfirmasi Password Baru</label>
+    <input type="password" id="newPasswordConfirmation"
+        class="w-full px-3 py-2 pr-10 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring focus:ring-green-400 outline-none"
+        placeholder="••••••••">
+    <button type="button"
+        class="absolute right-3 top-9 text-gray-500 hover:text-green-600"
+        onclick="togglePassword('newPasswordConfirmation', this)">
+        <ion-icon name="eye-outline"></ion-icon>
+    </button>
+</div>
+
 
             <!-- Tombol Simpan -->
             <button type="submit"
@@ -365,4 +385,20 @@ document.getElementById("logout-btn-sidebar").addEventListener("click", () => {
         }
     });
 });
+</script>
+<script>
+function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector("ion-icon");
+
+    if (!input || !icon) return;
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.setAttribute("name", "eye-off-outline");
+    } else {
+        input.type = "password";
+        icon.setAttribute("name", "eye-outline");
+    }
+}
 </script>
